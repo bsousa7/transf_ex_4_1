@@ -40,3 +40,12 @@ def buscar(id: int):
     if id not in _tarefas:
         raise HTTPException(status_code=404, detail="Tarefa não encontrada")
     return _tarefas[id]
+
+
+@app.put("/tarefas/{id}")
+def atualizar(id: int, tarefa: TarefaUpdate):
+    if id not in _tarefas:
+        raise HTTPException(status_code=404, detail="Tarefa não encontrada")
+    _tarefas[id]["titulo"] = tarefa.titulo
+    _tarefas[id]["concluida"] = tarefa.concluida
+    return _tarefas[id]
